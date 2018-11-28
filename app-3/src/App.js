@@ -3,17 +3,31 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state={
+      input:"",
+      food:  ["Spaghetti", "Ice Cream", "Sushi", "Bologna","Cheese"]
+    }
+  }
+  updateList=(value)=>{
+    this.setState({
+       input: value
+    })
+  }
+
   render() {
+     const{food, input, newArray}= this.state
+     const foodList = food.filter(e=>{
+       return e.includes(input)
+     }).map((e,i)=>{
+       return <h2 key={i}>{e}</h2>
+     })
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <input onChange={e=>this.updateList(e.target.value)}></input>
+       {foodList}
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
     );
   }
 }
